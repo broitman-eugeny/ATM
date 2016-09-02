@@ -38,14 +38,34 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ATM.cs">
-      <SubType>Form</SubType>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppATM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConstantsATM.cs" />
+    <Compile Include="ContribForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataATM.cs" />
+    <Compile Include="FormATM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GetCashExchangeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GetCashForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GetContribBaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NonNegativeIntegersTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
