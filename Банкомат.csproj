@@ -63,6 +63,7 @@
     <Compile Include="GetContribBaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="GetContribManager.cs" />
     <Compile Include="NonNegativeIntegersTextBox.cs">
       <SubType>Component</SubType>
     </Compile>

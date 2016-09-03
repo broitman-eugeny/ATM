@@ -65,55 +65,21 @@ class GetCashForm : Form
     //Обработчик нажатия на кнопку получения наличных
     protected void bGet_Clicked(object sender, EventArgs e)
     {
-        //Количество купюр выдаваемых банкоматом
-        int[] numBills = new int[ConstantsATM.NumOfDignities];
-        //Количество купюр в банкомате до получения наличных
-        int[] billsBeforeGet = DataATM.getBillsFromATM();
         //Требуемая сумма
         int sumReq = tbGetCash.getIntValNNITB();
-        //Вычисление количества купюр для выдачи требуемой суммы
         if (sumReq > 0)//Требуемая сумма не нулевая
         {
             if (rbLargeBills.Checked == true)//Выбрано крупными купюрами
             {
-                int remains = sumReq;//Остаток запрашиваемой суммы после исключения суммы обеспечиваемой купюрами большего достоинства
-                for (int i = ConstantsATM.NumOfDignities-1; i >= 0; i--)//Начиная с крупных купюр
+                bool success;//сумма получена (выдана банкоматом)        
+                //Получение наличных средств крупными купюрами
+                success = GetContribManager.GetLargeCash(sumReq, FormATM._BillsChangedCallback);
+                
+                //Если по какой-либо причине деньги не получены
+                if(success==false)
                 {
-                    numBills[i] = remains / ConstantsATM.ValuesOfDignities[i];//Количество купюр i-го достоинства, требуемых для запрашиваемой суммы
-                    if (billsBeforeGet[i] < numBills[i])//Если в банкомате нет столько 5000 купюр
-                    {
-                        numBills[i] = billsBeforeGet[i];//Забираем все из банкомата
-                    }
-                    remains -= (ConstantsATM.ValuesOfDignities[i] * numBills[i]);
-                }
-                if (remains > 0)//Сумма не кратна 10
-                {
-                    if (remains < 10)//Сумма не кратна 10
-                    {
-                        MessageBox.Show("Отсутствуют купюры достоинством меньше 10 руб.\nВведите значение суммы кратное 10", "Получение наличных средств");
-                    }
-                    else//Не хватает купюр требуемого достоинства
-                    {
-                        MessageBox.Show("В банкомате отсутствует требуемая сумма либо купюры требуемого достоинства.\nВведите другое значение суммы", "Получение наличных средств");
-                    }
                     return;
                 }
-
-                //Изъятие купюр из банкомата
-                for (int i = 0; i < ConstantsATM.NumOfDignities; i++)
-                {
-                    DataATM.setBillsInATM(i, billsBeforeGet[i] - numBills[i], FormATM._BillsChangedCallback);
-                }
-
-                //Строковая вставка в сообщение клиенту о количестве и номинале получаемых купюр
-                StringBuilder strNumGet = new StringBuilder();
-                for (int i = 0; i < ConstantsATM.NumOfDignities; i++)
-                {
-                    strNumGet.Append((numBills[i] > 0) ? ("\n" + numBills[i].ToString() + " - " + ConstantsATM.ValuesOfDignities[i] + " рублевых купюр") : "");
-                }
-
-                MessageBox.Show("Получите " + sumReq.ToString() + " руб.:" + strNumGet,
-                "Получение наличных средств крупными купюрами");
             }
             else//Выбрано купюрами c разменом
             {

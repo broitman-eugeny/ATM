@@ -19,59 +19,27 @@ class ContribForm : GetContribBaseForm
     //Обработчик нажатия на кнопку внесения средств
     protected void bContrib_Clicked(object sender, EventArgs e)
     {
-        //Количество купюр в банкомате до пополнения
-        int[] billsBeforeContrib = DataATM.getBillsFromATM();
-        //Предполагаемое количество купюр в банкомате после пополнения
-        int[] billsAfterContrib = new int[ConstantsATM.NumOfDignities];
-        for (int i = 0; i < ConstantsATM.NumOfDignities; i++ )
-        {
-            billsAfterContrib[i] = billsBeforeContrib[i] + tbGetContrib[i].getIntValNNITB();
-        }
-
-        bool ExcessFlag = false;//Признак превышения максимального количества купюр какого либо номинала
-        bool ContribFlag = false;//Признак внесения в банкомат купюр какого либо номинала
-        //Внесение купюр соответствующего достоинства в банкомат (в массив stateOfATM в классе DataATM)
-        for (int i = 0; i < ConstantsATM.NumOfDignities; i++)
-        {
-            DataATM.setBillsInATM(i, billsAfterContrib[i], FormATM._BillsChangedCallback);
-            if (billsAfterContrib[i] > ConstantsATM.MaxBillsInATM[i])//Превышение максимального количества купюр i-го номинала
-            {
-                ExcessFlag = true;
-            }
-        }
-
-        //Фактическое количество купюр в банкомате после пополнения
-        billsAfterContrib = DataATM.getBillsFromATM();
+        bool success;//внесены все купюры
+        int[] Bills=new int[ConstantsATM.NumOfDignities];//количество вносимых купюр, введенных пользователем
 
         for (int i = 0; i < ConstantsATM.NumOfDignities; i++)
         {
-            //Успешное внесение в банкомат купюр какого либо номинала
-            if(billsAfterContrib[i] > billsBeforeContrib[i])
-            {
-                ContribFlag = true;
-                break;
-            }
+            Bills[i] = tbGetContrib[i].getIntValNNITB();
         }
 
-        //Если количество каких либо из купюр превышает максимально допустимое в банкомате
-        if (ExcessFlag == true)
+        //Внесение купюр в банкомат
+        success=GetContribManager.Contribute(Bills, FormATM._BillsChangedCallback);
+
+        if(success)
         {
-            if (ContribFlag==true)//Какие либо из купюр внесены в банкомат
-            {
-                MessageBox.Show("Остальные купюры внесены успешно", "Внесение средств");
-            }
+            this.Hide();
         }
         else
         {
-            if (ContribFlag == true)//Какие либо из купюр внесены в банкомат
+            for (int i = 0; i < ConstantsATM.NumOfDignities; i++)
             {
-                MessageBox.Show("Купюры внесены успешно", "Внесение средств");
-                this.Hide();
+                tbGetContrib[i].Text = "";
             }
-        }
-        for (int i = 0; i < ConstantsATM.NumOfDignities; i++)
-        {
-            tbGetContrib[i].Text = "";
         }
     }
 }
