@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 class GetContribManager
 {
-    //Функция внесения средств в банкомат 
+    //Функция внесения средств в банкомат
     //Возвращает true при успешном внесении всех купюр, false - если по какой-либо причине внесены не все купюры,
     //или не внесено ни одной купюры
     public static bool Contribute(int[] Bills, DataATM.BillsChanged BillsChangedCallback)
