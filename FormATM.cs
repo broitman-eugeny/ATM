@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-//Форма приложения 
+//Форма приложения
 class FormATM : Form
 {
     //Метки состояния банкомата по достоинствам купюр
