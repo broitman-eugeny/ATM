@@ -2,7 +2,7 @@
 using System.Text;
 using System.Windows.Forms;
 
-//Форма получения наличных с разменом 
+//Форма получения наличных с разменом
 class GetCashExchangeForm : GetContribBaseForm
 {
     public GetCashExchangeForm() : base()//сначала выполнить конструктор базового класса
