@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-//Форма внесения средств
+//Форма внесения средств 
 class ContribForm : GetContribBaseForm
 {
     public ContribForm() : base()//сначала выполнить конструктор базового класса
