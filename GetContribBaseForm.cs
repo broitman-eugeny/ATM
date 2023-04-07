@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-//Базовый класс для GetCashExchangeForm и ContribForm
+//Базовый класс для GetCashExchangeForm и ContribForm 
 class GetContribBaseForm : Form
 {
     //Массив текстовых элементов ввода количества купюр для получения/внесения из/в банкомат(а)
