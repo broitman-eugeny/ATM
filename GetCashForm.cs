@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-//Главная форма получения наличных
+//Главная форма получения наличных 
 class GetCashForm : Form
 {
     //Элемент ввода запрашиваемой суммы
